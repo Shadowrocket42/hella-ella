@@ -13,10 +13,23 @@
       --bg: #060606;
       --fg: #f0f0f0;
       --muted: #666;
-      --border: rgba(255,255,255,0.08);
+      --border: rgba(192,192,192,0.12);
       --pink: #E84B8A;
       --green: #A8D84E;
       --silver: #999;
+      --silver-light: #e8e8e8;
+      --silver-mid: #c0c0c0;
+      --silver-dark: #808080;
+      --silver-shine: #f5f5f5;
+      --black: #0a0a0a;
+      --metallic-gradient: linear-gradient(135deg, #c0c0c0 0%, #f5f5f5 30%, #808080 60%, #e0e0e0 100%);
+      --depop-red: #ff2300;
+      --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
     }
 
     html { scroll-behavior: smooth; }
@@ -24,164 +37,35 @@
     body {
       font-family: 'Space Grotesk', sans-serif;
       background: var(--bg);
+      background-image: url('photos/vintage-clothes.webp');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
       color: var(--fg);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.84);
+      z-index: -1;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* ===== HEADER ===== */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      background: rgba(6,6,6,0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .header-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      height: 64px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    .logo-circle {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid rgba(255,255,255,0.12);
-      transition: border-color 0.3s;
-    }
-
-    .logo-circle:hover {
-      border-color: var(--pink);
-    }
-
-    .brand-name {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-
-    .header-nav {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .header-nav a {
-      font-size: 0.7rem;
-      font-weight: 400;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--silver);
-      transition: color 0.3s;
-    }
-
-    .header-nav a:hover { color: var(--fg); }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 0.5rem;
-    }
-
-    .header-social {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.45rem 0.9rem;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--silver);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      transition: all 0.3s;
-    }
-
-    .header-social svg {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
-    }
-
-    .header-social:hover {
-      color: var(--fg);
-      border-color: rgba(255,255,255,0.25);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .header-social.depop:hover {
-      color: var(--pink);
-      border-color: rgba(232,75,138,0.3);
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 64px 2rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-grain {
-      position: absolute;
-      inset: 0;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      max-width: 900px;
-    }
-
-    .hero-label {
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    /* Big glitch headline */
-    .hero-title {
+    /* ===== GLITCH for all titles ===== */
+    .glitch-text {
       font-family: 'Special Elite', cursive;
-      font-size: clamp(3rem, 10vw, 8rem);
-      line-height: 0.95;
-      letter-spacing: -2px;
-      margin-bottom: 1.5rem;
       position: relative;
       display: inline-block;
     }
 
-    .hero-title::before,
-    .hero-title::after {
+    .glitch-text::before,
+    .glitch-text::after {
       content: attr(data-text);
       position: absolute;
       top: 0;
@@ -190,15 +74,15 @@
       height: 100%;
     }
 
-    .hero-title::before {
-      left: 3px;
-      text-shadow: -3px 0 var(--pink);
+    .glitch-text::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--pink);
       animation: g1 3s infinite linear alternate-reverse;
     }
 
-    .hero-title::after {
-      left: -3px;
-      text-shadow: 3px 0 var(--green);
+    .glitch-text::after {
+      left: -2px;
+      text-shadow: 2px 0 var(--green);
       animation: g2 2.5s infinite linear alternate-reverse;
     }
 
@@ -234,10 +118,351 @@
       96% { clip-path: inset(38% 0 42% 0); }
     }
 
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--silver-dark);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--silver-dark);
+      transition: border-color 0.3s;
+    }
+
+    .logo-circle:hover {
+      border-color: var(--silver-light);
+    }
+
+    /* Glitching brand name with hanger */
+    .brand-glitch {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-glitch-text {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--silver-light);
+      position: relative;
+      display: inline-block;
+    }
+
+    .brand-glitch-text::before,
+    .brand-glitch-text::after {
+      content: 'Hella-Ella.com';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand-glitch-text::before {
+      left: 1px;
+      text-shadow: -1px 0 var(--pink);
+      animation: g1 2.5s infinite linear alternate-reverse;
+    }
+
+    .brand-glitch-text::after {
+      left: -1px;
+      text-shadow: 1px 0 var(--green);
+      animation: g2 3s infinite linear alternate-reverse;
+    }
+
+    /* Swinging hanger */
+    @keyframes swing {
+      0%,100% { transform: rotate(-20deg); }
+      25% { transform: rotate(12deg); }
+      50% { transform: rotate(-8deg); }
+      75% { transform: rotate(5deg); }
+    }
+
+    .hanger {
+      display: inline-flex;
+      animation: swing 3s ease-in-out infinite;
+      transform-origin: 50% 2px;
+      line-height: 1;
+      transition: filter 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .hanger:hover {
+      animation: none;
+      transform: rotate(0deg) scale(1.3);
+      filter: drop-shadow(0 0 8px var(--silver-mid));
+    }
+
+    .hanger svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--silver-mid);
+      fill: none;
+      stroke-width: 1.2;
+      transition: stroke 0.3s;
+    }
+
+    .hanger:hover svg {
+      stroke: var(--silver-shine);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .header-nav a {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      transition: all 0.3s;
+    }
+
+    .header-nav a:hover {
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Depop button — logo-only red pill */
+    .header-social-depop {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem 0.75rem;
+      background: var(--depop-red);
+      border: 1.5px solid var(--depop-red);
+      border-radius: 100px;
+      transition: all 0.3s;
+    }
+
+    .header-social-depop img {
+      width: 50px;
+      height: 14px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .header-social-depop:hover {
+      background: #cc1c00;
+      box-shadow: 0 0 20px rgba(255,35,0,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* Instagram button — multicolour gradient */
+    .header-social-ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--ig-gradient);
+      border: 1px solid transparent;
+      border-radius: 100px;
+      transition: all 0.3s;
+    }
+
+    .header-social-ig svg {
+      width: 14px;
+      height: 14px;
+      fill: #fff;
+    }
+
+    .header-social-ig:hover {
+      box-shadow: 0 0 20px rgba(225,48,108,0.35);
+      transform: translateY(-1px);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('photos/singer.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }
+
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Special Elite', cursive;
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .hero-title::before,
+    .hero-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title::before {
+      left: 3px;
+      filter: drop-shadow(-3px 0 0 rgba(232,75,138,0.4));
+      animation: g1 3s infinite linear alternate-reverse, shimmer 4s linear infinite;
+    }
+
+    .hero-title::after {
+      left: -3px;
+      filter: drop-shadow(3px 0 0 rgba(168,216,78,0.4));
+      animation: g2 2.5s infinite linear alternate-reverse, shimmer 4s linear infinite;
+    }
+
+    /* Market promo banner with singer photo */
+    .market-promo {
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--silver-dark);
+      border-radius: 4px;
+    }
+
+    .market-promo-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: grayscale(0.7) contrast(1.2);
+      display: block;
+    }
+
+    .market-promo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+    }
+
+    .market-promo-overlay .promo-headline {
+      font-family: 'Special Elite', cursive;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--silver-light);
+      margin-bottom: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    .market-promo-overlay .promo-sub {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--silver-mid);
+      line-height: 1.7;
+      max-width: 500px;
+    }
+
+    .market-promo-overlay .promo-sub strong {
+      color: var(--silver-shine);
+      font-weight: 500;
+    }
+
     .hero-sub {
       font-size: clamp(0.85rem, 1.5vw, 1.05rem);
       font-weight: 300;
-      color: var(--silver);
+      color: var(--silver-mid);
       line-height: 1.7;
       max-width: 460px;
       margin: 0 auto 2.5rem;
@@ -250,50 +475,59 @@
       flex-wrap: wrap;
     }
 
-    .btn {
+    /* Depop CTA — logo-only red pill */
+    .btn-depop {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 2.5rem;
+      border-radius: 100px;
+      cursor: pointer;
+      background: var(--depop-red);
+      border: 1.5px solid var(--depop-red);
+      transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    .btn-depop img {
+      width: 70px;
+      height: 20px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .btn-depop:hover {
+      background: #cc1c00;
+      box-shadow: 0 0 30px rgba(255,35,0,0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Instagram CTA — gradient */
+    .btn-ig {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
       padding: 0.85rem 2rem;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
       border-radius: 100px;
-      transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
       cursor: pointer;
+      background: var(--ig-gradient);
+      color: #fff;
+      border: 1.5px solid transparent;
+      transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
     }
 
-    .btn svg {
+    .btn-ig svg {
       width: 16px;
       height: 16px;
-      fill: currentColor;
+      fill: #fff;
     }
 
-    .btn-primary {
-      background: var(--fg);
-      color: var(--bg);
-      border: 1.5px solid var(--fg);
-    }
-
-    .btn-primary:hover {
-      background: var(--pink);
-      border-color: var(--pink);
-      color: #fff;
-      box-shadow: 0 0 30px rgba(232,75,138,0.25);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--fg);
-      border: 1.5px solid rgba(255,255,255,0.2);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--fg);
-      background: rgba(255,255,255,0.04);
+    .btn-ig:hover {
+      box-shadow: 0 0 30px rgba(225,48,108,0.3);
       transform: translateY(-2px);
     }
 
@@ -303,13 +537,14 @@
       bottom: 2.5rem;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 2;
     }
 
     .scroll-cue span {
       display: block;
       width: 1px;
       height: 48px;
-      background: linear-gradient(to bottom, var(--muted), transparent);
+      background: linear-gradient(to bottom, var(--silver-mid), transparent);
       animation: scrollFade 2s ease-in-out infinite;
     }
 
@@ -320,10 +555,12 @@
 
     /* ===== MARQUEE ===== */
     .marquee-wrap {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--silver-dark);
+      border-bottom: 1px solid var(--silver-dark);
       overflow: hidden;
       padding: 1rem 0;
+      position: relative;
+      z-index: 1;
     }
 
     .marquee {
@@ -339,11 +576,18 @@
       font-size: 0.8rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--silver-mid);
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 6s linear infinite;
     }
 
     .marquee .dot {
-      color: var(--pink);
+      color: var(--silver-light);
+      -webkit-text-fill-color: var(--silver-light);
+      background: none;
     }
 
     @keyframes marquee {
@@ -356,6 +600,8 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 6rem 2rem;
+      position: relative;
+      z-index: 1;
     }
 
     .section-header {
@@ -368,33 +614,62 @@
     }
 
     .section-num {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
       font-weight: 400;
-      letter-spacing: 3px;
-      color: var(--muted);
+      letter-spacing: 0.2em;
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
     }
 
     .section-title {
       font-family: 'Special Elite', cursive;
       font-size: clamp(1.8rem, 4vw, 2.5rem);
       letter-spacing: 2px;
+      color: var(--silver-light);
     }
 
     /* ===== ABOUT ===== */
     .about-grid {
       display: grid;
-      grid-template-columns: 200px 1fr;
+      grid-template-columns: 280px 1fr;
       gap: 3rem;
       align-items: start;
     }
 
-    .about-avatar {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--border);
-      filter: grayscale(0.2);
+    .photo-placeholder {
+      width: 280px;
+      height: 380px;
+      background: #111;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      box-shadow: 0 0 0 3px var(--silver-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .photo-placeholder .placeholder-icon {
+      font-size: 2rem;
+      color: var(--silver-mid);
+    }
+
+    .photo-placeholder .placeholder-name {
+      font-family: 'Special Elite', cursive;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      color: var(--silver-light);
+    }
+
+    .photo-placeholder .placeholder-soon {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver-dark);
     }
 
     .about-text p {
@@ -423,9 +698,9 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       padding: 0.4rem 1rem;
-      border: 1px solid var(--border);
+      border: 1px solid var(--silver-dark);
       border-radius: 100px;
-      color: var(--silver);
+      color: var(--silver-mid);
     }
 
     /* ===== GALLERY ===== */
@@ -436,45 +711,43 @@
     }
 
     .gallery-item {
-      aspect-ratio: 3/4;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
+      min-height: 220px;
+      background: #0d0d0d;
+      border: 2px solid var(--silver-dark);
+      border-radius: 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 12px;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s;
+      transition: all 0.3s ease;
     }
 
     .gallery-item:hover {
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(255,255,255,0.15);
-    }
-
-    .gallery-item svg {
-      width: 28px;
-      height: 28px;
-      fill: rgba(255,255,255,0.08);
-      margin-bottom: 0.6rem;
-    }
-
-    .gallery-item span {
-      font-size: 0.55rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
+      border-color: var(--silver-light);
+      box-shadow: 0 0 20px rgba(192,192,192,0.1);
     }
 
     .gallery-item .tag-label {
-      position: absolute;
-      top: 0.8rem;
-      left: 0.8rem;
-      font-size: 0.5rem;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.9rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--pink);
+      color: var(--silver-light);
+    }
+
+    .gallery-item .placeholder-icon {
+      font-size: 1.2rem;
+      color: var(--silver-mid);
+    }
+
+    .gallery-item .arriving-soon {
+      font-size: 0.55rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver-dark);
     }
 
     /* ===== MARKET ===== */
@@ -484,12 +757,12 @@
       gap: 2rem;
       align-items: center;
       padding: 2rem;
-      border: 1px solid var(--border);
+      border: 1px solid var(--silver-dark);
       transition: border-color 0.3s;
     }
 
     .market-card:hover {
-      border-color: rgba(255,255,255,0.15);
+      border-color: var(--silver-light);
     }
 
     .market-date-block {
@@ -502,14 +775,18 @@
       font-size: 2.5rem;
       font-weight: 700;
       line-height: 1;
-      color: var(--pink);
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
     }
 
     .market-month {
       font-size: 0.65rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--silver-dark);
       margin-top: 0.3rem;
     }
 
@@ -517,27 +794,28 @@
       font-size: 1.1rem;
       font-weight: 500;
       margin-bottom: 0.3rem;
+      color: var(--silver-light);
     }
 
     .market-info p {
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--silver-dark);
     }
 
     .market-status {
       font-size: 0.6rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--pink);
-      border: 1px solid rgba(232,75,138,0.3);
+      color: var(--silver-light);
+      border: 1px solid var(--silver-mid);
       padding: 0.4rem 1rem;
       border-radius: 100px;
       animation: statusPulse 2s ease-in-out infinite;
     }
 
     @keyframes statusPulse {
-      0%,100% { box-shadow: 0 0 0 rgba(232,75,138,0); }
-      50% { box-shadow: 0 0 12px rgba(232,75,138,0.15); }
+      0%,100% { box-shadow: 0 0 0 rgba(192,192,192,0); }
+      50% { box-shadow: 0 0 12px rgba(192,192,192,0.2); }
     }
 
     /* ===== SHOP CTA ===== */
@@ -566,18 +844,21 @@
       font-size: 0.65rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--silver-dark);
     }
 
     /* ===== FOOTER ===== */
     footer {
-      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.95);
+      border-top: 1px solid var(--silver-dark);
       padding: 3rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -595,13 +876,30 @@
       border-radius: 50%;
       object-fit: cover;
       opacity: 0.5;
-      border: 1px solid var(--border);
+      border: 1px solid var(--silver-dark);
     }
 
     footer p {
       font-size: 0.6rem;
-      color: var(--muted);
+      color: var(--silver-dark);
       letter-spacing: 2px;
+    }
+
+    .footer-credit {
+      font-size: 0.55rem;
+      color: var(--silver-dark);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .footer-credit a {
+      background: var(--metallic-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
     }
 
     .footer-links {
@@ -613,11 +911,11 @@
       font-size: 0.6rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--silver-dark);
       transition: color 0.3s;
     }
 
-    .footer-links a:hover { color: var(--fg); }
+    .footer-links a:hover { color: var(--silver-light); }
 
     /* ===== REVEAL ===== */
     .reveal {
@@ -643,7 +941,7 @@
     .hamburger span {
       width: 22px;
       height: 1px;
-      background: var(--fg);
+      background: var(--silver-mid);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -670,16 +968,17 @@
 
       .header-nav.open a { font-size: 1rem; }
 
-      .brand-name { display: none; }
+      .brand-glitch-text { font-size: 0.7rem; }
+      .hanger svg { width: 16px; height: 16px; }
 
       .about-grid {
         grid-template-columns: 1fr;
         text-align: center;
       }
 
-      .about-avatar {
-        width: 140px;
-        height: 140px;
+      .photo-placeholder {
+        width: 200px;
+        height: 280px;
         margin: 0 auto;
       }
 
@@ -699,7 +998,7 @@
       }
 
       .hero-ctas { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 280px; justify-content: center; }
+      .btn-depop, .btn-ig { width: 100%; max-width: 280px; justify-content: center; }
 
       .section { padding: 4rem 1.5rem; }
 
@@ -716,7 +1015,12 @@
     <div class="header-inner">
       <div class="header-left">
         <a href="#"><img src="photos/logo.JPG" alt="Hella Ella" class="logo-circle"></a>
-        <span class="brand-name">Hella Ella</span>
+        <div class="brand-glitch">
+          <span class="hanger">
+            <svg viewBox="0 0 32 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1c0 0 0 2.5 0 3.5c0 1-1 2-3 3L3 14c-1.5 1-2 2-2 3.5C1 19.5 2.5 21 5 21h22c2.5 0 4-1.5 4-3.5c0-1.5-.5-2.5-2-3.5l-10-6.5c-2-1-3-2-3-3C16 3.5 16 1 16 1z" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="1.5" r="1.5" fill="none"/></svg>
+          </span>
+          <span class="brand-glitch-text">Hella-Ella.com</span>
+        </div>
       </div>
 
       <ul class="header-nav" id="navMenu">
@@ -727,11 +1031,10 @@
       </ul>
 
       <div class="header-right">
-        <a href="https://www.depop.com/hellaella_/" target="_blank" rel="noopener" class="header-social depop">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6c2.34 0 3.78 1.68 3.78 4.44v4.56c0 2.76-1.44 4.44-3.78 4.44s-3.78-1.68-3.78-4.44V8.04c0-2.76 1.44-4.44 3.78-4.44z"/></svg>
-          Depop
+        <a href="https://www.depop.com/hellaella_/" target="_blank" rel="noopener" class="header-social-depop">
+          <img src="photos/depop logo.svg" alt="Depop">
         </a>
-        <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" class="header-social">
+        <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" class="header-social-ig">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           Instagram
         </a>
@@ -753,11 +1056,10 @@
       <h1 class="hero-title" data-text="Second Hand. First Choice.">Second Hand.<br>First Choice.</h1>
       <p class="hero-sub">Curated secondhand fashion by Ella. One-of-a-kind vintage, Y2K, and grunge pieces picked with intention.</p>
       <div class="hero-ctas">
-        <a href="https://www.depop.com/hellaella_/" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6c2.34 0 3.78 1.68 3.78 4.44v4.56c0 2.76-1.44 4.44-3.78 4.44s-3.78-1.68-3.78-4.44V8.04c0-2.76 1.44-4.44 3.78-4.44z"/></svg>
-          Shop on Depop
+        <a href="https://www.depop.com/hellaella_/" target="_blank" rel="noopener" class="btn-depop">
+          <img src="photos/depop logo.svg" alt="Shop on Depop">
         </a>
-        <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" class="btn btn-outline">
+        <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" class="btn-ig">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           @hellaella.au
         </a>
@@ -795,11 +1097,16 @@
   <!-- About -->
   <div class="section" id="about">
     <div class="section-header reveal">
-      <h2 class="section-title">About</h2>
+      <h2 class="section-title glitch-text" data-text="About">About</h2>
       <span class="section-num">01</span>
     </div>
     <div class="about-grid reveal">
-      <img src="photos/logo.JPG" alt="Ella" class="about-avatar">
+      <!-- REPLACE: swap photo-placeholder div with <img src="photos/ella.jpg" alt="Ella" style="width:280px;height:380px;object-fit:cover;box-shadow:0 0 0 3px var(--silver-mid);"> -->
+      <div class="photo-placeholder">
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="placeholder-name">ELLA'S PHOTO</span>
+        <span class="placeholder-soon">coming soon</span>
+      </div>
       <div class="about-text">
         <p>
           <strong>Hella Ella</strong> is the brainchild of Ella, a 20-year-old fashion lover based in Melbourne.
@@ -821,39 +1128,39 @@
   <!-- Pieces -->
   <div class="section" id="pieces">
     <div class="section-header reveal">
-      <h2 class="section-title">Pieces</h2>
+      <h2 class="section-title glitch-text" data-text="Pieces">Pieces</h2>
       <span class="section-num">02</span>
     </div>
     <div class="gallery-grid reveal">
       <div class="gallery-item">
         <span class="tag-label">Vintage</span>
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Add photo</span>
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="arriving-soon">arriving soon</span>
       </div>
       <div class="gallery-item">
         <span class="tag-label">Y2K</span>
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Add photo</span>
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="arriving-soon">arriving soon</span>
       </div>
       <div class="gallery-item">
         <span class="tag-label">Band Tee</span>
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Add photo</span>
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="arriving-soon">arriving soon</span>
       </div>
       <div class="gallery-item">
         <span class="tag-label">Grunge</span>
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Add photo</span>
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="arriving-soon">arriving soon</span>
       </div>
       <div class="gallery-item">
         <span class="tag-label">Streetwear</span>
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Add photo</span>
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="arriving-soon">arriving soon</span>
       </div>
       <div class="gallery-item">
         <span class="tag-label">Denim</span>
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Add photo</span>
+        <span class="placeholder-icon">&#10022;</span>
+        <span class="arriving-soon">arriving soon</span>
       </div>
     </div>
   </div>
@@ -861,7 +1168,7 @@
   <!-- Markets -->
   <div class="section" id="markets">
     <div class="section-header reveal">
-      <h2 class="section-title">Markets</h2>
+      <h2 class="section-title glitch-text" data-text="Markets">Markets</h2>
       <span class="section-num">03</span>
     </div>
     <div class="market-card reveal">
@@ -871,13 +1178,25 @@
       </div>
       <div class="market-info">
         <h3>Bendigo Fashion Market</h3>
-        <p>Bendigo, VIC</p>
+        <p>Bendigo, VIC &mdash; Bendigo Showgrounds</p>
+        <p style="color: var(--silver-mid); margin-top: 0.3rem;">Stall TBA &mdash; look for the Hella Ella banner</p>
       </div>
       <span class="market-status">Next Market</span>
     </div>
-    <p class="reveal" style="text-align:center; color: var(--muted); font-size: 0.75rem; letter-spacing: 2px; margin-top: 2rem;">
+
+    <div class="market-promo reveal">
+      <img src="photos/singer.jpg" alt="Hella Ella at the markets" class="market-promo-img">
+      <div class="market-promo-overlay">
+        <p class="promo-headline">Tell your friends. Bring your wallet.</p>
+        <p class="promo-sub">
+          <strong>March 29th, Bendigo Showgrounds.</strong> One-of-a-kind secondhand pieces, priced to move. DM <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" style="color: var(--silver-shine);">@hellaella.au</a> for early dibs or come find me on the day.
+        </p>
+      </div>
+    </div>
+
+    <p class="reveal" style="text-align:center; color: var(--silver-dark); font-size: 0.75rem; letter-spacing: 2px; margin-top: 2rem;">
       Follow
-      <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" style="color: var(--pink);">@hellaella.au</a>
+      <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" style="color: var(--silver-light);">@hellaella.au</a>
       for upcoming dates
     </p>
   </div>
@@ -885,17 +1204,16 @@
   <!-- Shop -->
   <div class="section" id="shop">
     <div class="section-header reveal">
-      <h2 class="section-title">Shop</h2>
+      <h2 class="section-title glitch-text" data-text="Shop">Shop</h2>
       <span class="section-num">04</span>
     </div>
     <div class="shop-cta reveal">
       <p>Every piece is one-of-a-kind, hand-picked, and ready for its next chapter. Browse the collection or DM to purchase.</p>
       <div class="shop-buttons">
-        <a href="https://www.depop.com/hellaella_/" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6c2.34 0 3.78 1.68 3.78 4.44v4.56c0 2.76-1.44 4.44-3.78 4.44s-3.78-1.68-3.78-4.44V8.04c0-2.76 1.44-4.44 3.78-4.44z"/></svg>
-          Shop on Depop
+        <a href="https://www.depop.com/hellaella_/" target="_blank" rel="noopener" class="btn-depop">
+          <img src="photos/depop logo.svg" alt="Shop on Depop">
         </a>
-        <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" class="btn btn-outline">
+        <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener" class="btn-ig">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           DM on Instagram
         </a>
@@ -916,6 +1234,7 @@
         <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
+    <p class="footer-credit">Built by <a href="#">Flook</a></p>
   </footer>
 
   <script>
