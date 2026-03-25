@@ -900,6 +900,81 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: shimmer 4s linear infinite;
+      transition: opacity 0.3s;
+    }
+
+    .footer-credit a:hover {
+      opacity: 0.7;
+    }
+
+    /* ===== SPLASH SCREEN ===== */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .splash.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .splash-text {
+      font-family: 'Courier New', 'Consolas', monospace;
+      font-size: clamp(1.2rem, 3.5vw, 2.6rem);
+      color: var(--silver-mid);
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+    }
+
+    .splash-prompt {
+      color: var(--silver-dark);
+    }
+
+    .splash-typed {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      animation: splashType 1.2s steps(14) 0.4s forwards;
+      border-right: 2px solid var(--silver-mid);
+    }
+
+    .splash-cursor-blink {
+      animation: splashBlink 0.8s step-end infinite;
+    }
+
+    @keyframes splashType {
+      from { width: 0; }
+      to { width: 14ch; }
+    }
+
+    @keyframes splashBlink {
+      0%,100% { border-color: var(--silver-mid); }
+      50% { border-color: transparent; }
+    }
+
+    .splash-sub {
+      font-family: 'Courier New', 'Consolas', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin-top: 1.2rem;
+      opacity: 0;
+      animation: splashSubIn 0.5s ease 1.8s forwards;
+    }
+
+    @keyframes splashSubIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .footer-links {
@@ -1009,6 +1084,15 @@
   </style>
 </head>
 <body>
+
+  <!-- Splash Screen -->
+  <div class="splash" id="splash">
+    <div class="splash-text">
+      <span class="splash-prompt">&gt;&nbsp;</span>
+      <span class="splash-typed splash-cursor-blink">built_by_flook</span>
+    </div>
+    <p class="splash-sub">loading hella-ella.com</p>
+  </div>
 
   <!-- Header -->
   <header>
@@ -1234,10 +1318,21 @@
         <a href="https://www.instagram.com/hellaella.au" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
-    <p class="footer-credit">Built by <a href="#">Flook</a></p>
+    <p class="footer-credit">Built by <a href="https://alfieflook.com" target="_blank" rel="noopener">Flook</a></p>
   </footer>
 
   <script>
+    // Splash screen — 3 second display then fade out
+    window.addEventListener('DOMContentLoaded', function() {
+      var splash = document.getElementById('splash');
+      setTimeout(function() {
+        splash.classList.add('fade-out');
+        setTimeout(function() {
+          splash.style.display = 'none';
+        }, 600);
+      }, 3000);
+    });
+
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('open');
     }
